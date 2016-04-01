@@ -143,6 +143,7 @@ var errorMessage = {
         // nothing for now
     },
     show: function(message) {
+        console.log(message);
         $("#zen-video-error").text("ERROR: " + message);
         $("#zen-video-error").show();
 
@@ -151,6 +152,7 @@ var errorMessage = {
 
         // Send the error to Google Analytics
         ga("send", "event", "error", message);
+        // TODO: log to keen
     },
     hide: function() {
         $("#zen-video-error").text("").hide();
@@ -385,10 +387,10 @@ function updateSlider(sliderID, lockVariable, value) {
     updatePlayerTime();
 }
 
-function logError(jqXHR, textStatus, errorThrown, errorMessage) {
+function logError(jqXHR, textStatus, errorThrown, _errorMessage) {
     var responseText = JSON.parse(jqXHR.error().responseText);
     errorMessage.show(responseText.error.errors[0].message);
-    console.log(errorMessage, errorThrown);
+    console.log(_errorMessage, errorThrown);
 }
 
 function toggleElement(event, ToggleID, buttonText) {
